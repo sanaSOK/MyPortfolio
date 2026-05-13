@@ -19,12 +19,23 @@ const services = [
   {
     icon: '💻',
     title: 'Web Development',
-    description: 'Building responsive and performant web applications with modern technologies.'
+    description: 'Building responsive and performant web applications with modern technologies.',
+    fullDescription: 'I build full-stack web applications using modern frameworks, optimized for accessibility and performance. I handle front-end UI, state management, backend APIs, and deployment.',
+    image: '💻',
+    examples: [
+      { title: 'E-Commerce E-Market', link: 'https://emarket-three.vercel.app' },
+      { title: 'Automatic Proccessing', link: 'https://automaton-nu.vercel.app' }
+    ]
   },
   {
     icon: '🎨',
     title: 'UI/UX Design',
-    description: 'Creating intuitive and beautiful user interfaces that delight users.'
+    description: 'Creating intuitive and beautiful user interfaces that delight users.',
+    fullDescription: 'I design user interfaces and experiences with a focus on clarity, usability, and delightful micro-interactions. I produce wireframes, prototypes, and high-fidelity designs.',
+    image: '🎨',
+    examples: [
+      { title: 'Portfolio Website', link: 'https://portfolio-web-rho-amber.vercel.app' }
+    ]
   },
   {
     icon: '📱',
@@ -37,6 +48,22 @@ const services = [
     description: 'Optimizing applications for speed and the best user experience.'
   }
 ]
+
+import SkillDetail from './SkillDetail.vue'
+
+
+const showSkillModal = ref(false)
+const selectedSkill = ref(null)
+
+function openSkill(service) {
+  selectedSkill.value = service
+  showSkillModal.value = true
+}
+
+function closeSkill() {
+  showSkillModal.value = false
+  selectedSkill.value = null
+}
 
 onMounted(() => {
   const observer = new IntersectionObserver((entries) => {
@@ -62,12 +89,14 @@ onMounted(() => {
       </div>
 
       <div class="services-grid">
-        <div v-for="(service, index) in services" :key="index" class="service-card" :style="{ '--delay': index * 0.1 + 's' }">
+        <div v-for="(service, index) in services" :key="index" class="service-card" :style="{ '--delay': index * 0.1 + 's' }" @click="openSkill(service)">
           <span class="service-icon">{{ service.icon }}</span>
           <h3 class="service-title">{{ service.title }}</h3>
           <p class="service-description">{{ service.description }}</p>
         </div>
       </div>
+
+      <SkillDetail v-if="showSkillModal" :skill="selectedSkill" @close="closeSkill" />
 
       <div class="skills-container">
         <h3 class="skills-heading">Technical Proficiency</h3>

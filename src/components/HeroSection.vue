@@ -58,6 +58,7 @@ const scrollToContact = () => {
       <div class="hero-visual">
         <div class="avatar-container">
           <div class="avatar-ring"></div>
+          
           <div class="avatar">
             <!-- Replace with your profile image -->
             <img 
@@ -66,6 +67,8 @@ const scrollToContact = () => {
               class="profile-image"
             />
           </div>
+          
+          
           
         </div>
       </div>

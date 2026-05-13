@@ -31,15 +31,15 @@ import IconEmail from './icons/IconEmail.vue'
 import IconPhone from './icons/IconPhone.vue'
 import IconLocation from './icons/IconLocation.vue'
 import IconGitHub from './icons/IconGitHub.vue'
-import IconLinkedIn from './icons/IconLinkedIn.vue'
-import IconTwitter from './icons/IconTwitter.vue'
-import IconDribbble from './icons/IconDribbble.vue'
+import IconYouTube from './icons/IconYouTube.vue'
+import IconFacebook from './icons/IconFacebook.vue'
+import IconInstagram from './icons/IconInstagram.vue'
 
 const socialLinks = [
   { icon: IconGitHub, name: 'GitHub', url: 'https://github.com/sanaSOK' },
-  { icon: IconLinkedIn, name: 'LinkedIn', url: '#' },
-  { icon: IconTwitter, name: 'Twitter', url: '#' },
-  { icon: IconDribbble, name: 'Dribbble', url: '#' }
+  { icon: IconYouTube, name: 'YouTube', url: 'https://www.youtube.com/' },
+  { icon: IconFacebook, name: 'Facebook', url: 'https://www.facebook.com/' },
+  { icon: IconInstagram, name: 'Instagram', url: 'https://www.instagram.com/' }
 ]
 
 const contactInfo = [

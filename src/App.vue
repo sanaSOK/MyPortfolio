@@ -6,6 +6,7 @@ import SkillsSection from './components/SkillsSection.vue'
 import ProjectsSection from './components/ProjectsSection.vue'
 import ContactSection from './components/ContactSection.vue'
 import NavBar from './components/NavBar.vue'
+import ScrollTop from './components/ScrollTop.vue'
 
 const isLoaded = ref(false)
 
@@ -29,6 +30,7 @@ onMounted(() => {
     <footer class="footer">
       <p>&copy; 2026 Sana. All rights reserved.</p>
     </footer>
+    <ScrollTop />
   </div>
 </template>
 

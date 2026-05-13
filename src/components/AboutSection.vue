@@ -1,25 +1,67 @@
 <script setup>
-import { ref, onMounted, onUnmounted } from 'vue'
+import { ref, onMounted, onBeforeUnmount } from 'vue'
+import siteInfo from '@/data/siteInfo.js'
+import projectsData from '@/data/projects.js'
 
 const isVisible = ref(false)
 const sectionRef = ref(null)
+
+// start counters at 0 so they animate up when visible
+const projects = ref(0)
+const clients = ref(0)
+const satisfaction = ref(0)
+const yearsExp = ref(siteInfo.yearsExperience)
+
+let observer = null
 
 const handleIntersection = (entries) => {
   entries.forEach(entry => {
     if (entry.isIntersecting) {
       isVisible.value = true
+      startCountUp()
     }
   })
 }
 
-onMounted(() => {
-  const observer = new IntersectionObserver(handleIntersection, {
-    threshold: 0.2
-  })
-  
-  if (sectionRef.value) {
-    observer.observe(sectionRef.value)
+function animateCount(target, refTarget, duration = 800) {
+  const start = 0
+  const end = Number(target)
+  if (end === 0) {
+    refTarget.value = 0
+    return
   }
+  const startTime = performance.now()
+
+  function tick(now) {
+    const elapsed = now - startTime
+    const progress = Math.min(elapsed / duration, 1)
+    refTarget.value = Math.floor(progress * (end - start) + start)
+    if (progress < 1) {
+      requestAnimationFrame(tick)
+    } else {
+      refTarget.value = end
+    }
+  }
+
+  requestAnimationFrame(tick)
+}
+
+function startCountUp() {
+  // prevent restarting if already animated
+  if (projects.value > 0) return
+  animateCount(projectsData.length, projects)
+  animateCount(siteInfo.happyClients, clients)
+  // satisfaction is a percentage; animate but keep % when displaying
+  animateCount(siteInfo.satisfaction, satisfaction)
+}
+
+onMounted(() => {
+  observer = new IntersectionObserver(handleIntersection, { threshold: 0.2 })
+  if (sectionRef.value) observer.observe(sectionRef.value)
+})
+
+onBeforeUnmount(() => {
+  if (observer && sectionRef.value) observer.unobserve(sectionRef.value)
 })
 </script>
 
@@ -40,7 +82,7 @@ onMounted(() => {
             <div class="frame-decoration"></div>
           </div>
           <div class="experience-badge">
-            <span class="exp-number">1+</span>
+            <span class="exp-number">{{ yearsExp }}+</span>
             <span class="exp-text">Years Experience</span>
           </div>
         </div>
@@ -63,15 +105,15 @@ onMounted(() => {
 
           <div class="stats">
             <div class="stat-item">
-              <span class="stat-number">6+</span>
+              <span class="stat-number">{{ projects }}+</span>
               <span class="stat-label">Projects Completed</span>
             </div>
             <div class="stat-item">
-              <span class="stat-number">15+</span>
+              <span class="stat-number">{{ clients }}+</span>
               <span class="stat-label">Happy Clients</span>
             </div>
             <div class="stat-item">
-              <span class="stat-number">99%</span>
+              <span class="stat-number">{{ satisfaction }}%</span>
               <span class="stat-label">Satisfaction</span>
             </div>
           </div>
