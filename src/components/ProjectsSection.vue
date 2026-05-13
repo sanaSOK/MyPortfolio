@@ -6,7 +6,7 @@ const isVisible = ref(false)
 const sectionRef = ref(null)
 const activeFilter = ref('all')
 
-const filters = ['all', 'web', 'app', 'design']
+const filters = ['all', 'web', 'app']
 
 const filteredProjects = computed(() => {
   if (activeFilter.value === 'all') return projects

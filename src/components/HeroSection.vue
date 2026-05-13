@@ -37,11 +37,10 @@ const scrollToContact = () => {
         </h1>
         <h2 class="title">
           <span class="title-word">Creative</span>
-          <span class="title-word highlight">Developer</span>
-          <span class="title-word">&amp; Designer</span>
+          <span class="title-word highlight">Web Developer</span>
         </h2>
         <p class="description">
-          I craft beautiful digital experiences with clean code and stunning design. 
+          I craft beautiful digital experiences with clean code and modern technologies. 
           Passionate about creating innovative solutions that make a difference.
         </p>
         <div class="hero-buttons">

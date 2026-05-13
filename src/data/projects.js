@@ -22,8 +22,8 @@ export default [
   {
     id: 3,
     title: 'Portfolio Website',
-    category: 'design',
-    description: 'Modern portfolio design with smooth animations and dark theme.',
+    category: 'web',
+    description: 'Modern portfolio website with smooth animations and dark theme.',
     image: '🎨',
     tags: ['Vue.js', 'CSS3', 'Animation'],
     link: 'https://portfolio-web-rho-amber.vercel.app',

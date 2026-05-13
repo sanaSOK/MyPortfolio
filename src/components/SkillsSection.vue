@@ -11,7 +11,6 @@ const skills = [
   { name: 'React', level: 85, icon: '⚛️', color: '#61dafb' },
   { name: 'Node.js', level: 82, icon: '🟢', color: '#339933' },
   { name: 'Python', level: 80, icon: '🐍', color: '#3776ab' },
-  { name: 'UI/UX Design', level: 88, icon: '✨', color: '#ff6b6b' },
   { name: 'Git', level: 85, icon: '📦', color: '#f05032' },
 ]
 
@@ -28,23 +27,13 @@ const services = [
     ]
   },
   {
-    icon: '🎨',
-    title: 'UI/UX Design',
-    description: 'Creating intuitive and beautiful user interfaces that delight users.',
-    fullDescription: 'I design user interfaces and experiences with a focus on clarity, usability, and delightful micro-interactions. I produce wireframes, prototypes, and high-fidelity designs.',
-    image: '🎨',
-    examples: [
-      { title: 'Portfolio Website', link: 'https://portfolio-web-rho-amber.vercel.app' }
-    ]
-  },
-  {
     icon: '📱',
     title: 'Mobile Apps',
     description: 'Developing cross-platform mobile applications for iOS and Android.'
   },
   {
     icon: '🚀',
-    title: 'Performance',
+    title: 'Performance Optimization',
     description: 'Optimizing applications for speed and the best user experience.'
   }
 ]

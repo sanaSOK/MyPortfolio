@@ -89,14 +89,14 @@ onBeforeUnmount(() => {
 
         <div class="about-text">
           <p class="lead">
-            I'm a passionate developer and designer based in the digital world, 
-            dedicated to creating beautiful, functional, and user-centered digital experiences.
+            I'm a passionate web developer based in the digital world, 
+            dedicated to creating beautiful, functional, and user-centered web applications.
           </p>
           <p>
-            With a strong foundation in both design principles and development technologies, 
-            I bring ideas to life through clean code and creative solutions. I believe that 
-            great design is not just about aesthetics—it's about solving problems and creating 
-            meaningful connections.
+            With a strong foundation in modern development technologies, 
+            I bring ideas to life through clean code and innovative solutions. I believe that 
+            great development is not just about functionality—it's about solving problems and creating 
+            meaningful user experiences.
           </p>
           <p>
             When I'm not coding, you'll find me exploring new technologies, contributing to 
