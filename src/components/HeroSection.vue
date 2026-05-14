@@ -56,19 +56,16 @@ const scrollToContact = () => {
       
       <div class="hero-visual">
         <div class="avatar-container">
-          <div class="avatar-ring"></div>
-          
-          <div class="avatar">
-            <!-- Replace with your profile image -->
+          <div class="avatar-blob">
             <img 
-              src="@/assets/images/QR.png" 
+              src="@/assets/images/me.png" 
               alt="SOK Sana" 
               class="profile-image"
             />
           </div>
-          
-          
-          
+          <div class="decorative-dot dot-1"></div>
+          <div class="decorative-dot dot-2"></div>
+          <div class="decorative-dot dot-3"></div>
         </div>
       </div>
     </div>
@@ -326,53 +323,80 @@ const scrollToContact = () => {
 
 .avatar-container {
   position: relative;
-  width: 350px;
-  height: 350px;
+  width: 300px;
+  height: 300px;
 }
 
-.avatar-ring {
+.avatar-blob {
   position: absolute;
   inset: 0;
-  border-radius: 22px;
-  border: 3px solid transparent;
-  background: linear-gradient(135deg, #667eea, #764ba2, #f093fb) border-box;
-  -webkit-mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
-  mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
-  -webkit-mask-composite: xor;
-  mask-composite: exclude;
-  animation: rotate 10s linear infinite;
-}
-
-@keyframes rotate {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-.avatar {
-  position: absolute;
-  inset: 20px;
-  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
-  border-radius: 18px;
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
   overflow: hidden;
 }
 
 .profile-image {
-  width: 100%;
-  height: 100%;
+  width: 280px;
+  height: 280px;
   object-fit: cover;
-  border-radius: 12px;
+  border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%;
+  transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), border-radius 0.6s ease-in-out;
+  animation: blob-morph 6s ease-in-out infinite, photo-fly 1.2s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+  box-shadow: 0 30px 80px rgba(102, 126, 234, 0.3);
 }
 
-.avatar-emoji {
-  font-size: 8rem;
+.avatar-blob:hover .profile-image {
+  transform: scale(1.08) rotate(2deg);
+  border-radius: 40% 60% 60% 40% / 40% 40% 60% 60%;
+}
+
+@keyframes blob-morph {
+  0%, 100% {
+    border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%;
+  }
+  25% {
+    border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+  }
+  50% {
+    border-radius: 70% 30% 60% 40% / 30% 60% 40% 70%;
+  }
+  75% {
+    border-radius: 30% 70% 40% 60% / 70% 40% 60% 30%;
+  }
+}
+
+.decorative-dot {
+  position: absolute;
+  border-radius: 50%;
+  animation: float 4s ease-in-out infinite;
+}
+
+.dot-1 {
+  width: 60px;
+  height: 60px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  bottom: -20px;
+  left: -30px;
+  animation-delay: 0s;
+}
+
+.dot-2 {
+  width: 70px;
+  height: 70px;
+  background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+  top: 20px;
+  right: -40px;
+  animation-delay: -1s;
+}
+
+.dot-3 {
+  width: 50px;
+  height: 50px;
+  background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+  bottom: 40px;
+  right: -25px;
+  animation-delay: -2s;
 }
 
 
