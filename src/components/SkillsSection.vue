@@ -8,7 +8,6 @@ const skills = [
   { name: 'HTML/CSS', level: 95, icon: '🎨', color: '#e34c26' },
   { name: 'JavaScript', level: 90, icon: '⚡', color: '#f7df1e' },
   { name: 'Vue.js', level: 88, icon: '💚', color: '#42b883' },
-  { name: 'React', level: 85, icon: '⚛️', color: '#61dafb' },
   { name: 'Node.js', level: 82, icon: '🟢', color: '#339933' },
   { name: 'Python', level: 80, icon: '🐍', color: '#3776ab' },
   { name: 'Git', level: 85, icon: '📦', color: '#f05032' },
