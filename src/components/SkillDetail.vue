@@ -8,7 +8,7 @@
       <h3 class="skill-title">{{ skill.title }}</h3>
       <p class="skill-full">{{ skill.fullDescription || skill.description }}</p>
       <div v-if="skill.examples && skill.examples.length" class="examples">
-        <h4>Example Work</h4>
+        <h4>{{ t('skills_examples_title') }}</h4>
         <ul>
           <li v-for="(ex, idx) in skill.examples" :key="idx">
             <a :href="ex.link" target="_blank" rel="noopener noreferrer">{{ ex.title }}</a>
@@ -20,13 +20,14 @@
 </template>
 
 <script setup>
-import { defineProps, defineEmits, computed } from 'vue'
+import { defineProps, defineEmits, computed, inject } from 'vue'
 
 const props = defineProps({
   skill: { type: Object, required: true }
 })
 
 const emit = defineEmits(['close'])
+const t = inject('t')
 
 function close() {
   emit('close')

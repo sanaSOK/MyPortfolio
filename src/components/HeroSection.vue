@@ -1,6 +1,7 @@
 <script setup>
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, inject } from 'vue'
 
+const t = inject('t')
 const isVisible = ref(false)
 
 onMounted(() => {
@@ -27,7 +28,7 @@ const scrollToContact = () => {
     
     <div class="hero-content" :class="{ visible: isVisible }">
       <div class="hero-text">
-        <span class="greeting">Hello, I'm</span>
+        <span class="greeting">{{ t('hero_greeting') }}</span>
         <h1 class="name">
           <span class="name-inner">
             <span class="name-part sok">SOK</span>
@@ -36,20 +37,19 @@ const scrollToContact = () => {
           </span>
         </h1>
         <h2 class="title">
-          <span class="title-word">Creative</span>
-          <span class="title-word highlight">Web Developer</span>
+          <span class="title-word">{{ t('hero_title_creative') }}</span>
+          <span class="title-word highlight">{{ t('hero_title_dev') }}</span>
         </h2>
         <p class="description">
-          I craft beautiful digital experiences with clean code and modern technologies. 
-          Passionate about creating innovative solutions that make a difference.
+          {{ t('hero_desc') }}
         </p>
         <div class="hero-buttons">
           <button class="btn btn-primary" @click="scrollToContact">
-            Get In Touch
+            {{ t('hero_btn_contact') }}
             <span class="btn-icon">→</span>
           </button>
           <a href="#projects" class="btn btn-secondary">
-            View My Work
+            {{ t('hero_btn_projects') }}
           </a>
         </div>
       </div>
@@ -71,7 +71,7 @@ const scrollToContact = () => {
     </div>
 
     <div class="scroll-indicator">
-      <span>Scroll Down</span>
+      <span>{{ t('hero_scroll') }}</span>
       <div class="scroll-arrow"></div>
     </div>
   </section>
@@ -244,7 +244,7 @@ const scrollToContact = () => {
   font-size: 1.8rem;
   font-weight: 400;
   margin: 1rem 0;
-  color: #a0a0a0;
+  color: var(--subtext-color);
 }
 
 .title-word {
@@ -259,7 +259,7 @@ const scrollToContact = () => {
 
 .description {
   font-size: 1.1rem;
-  color: #888;
+  color: var(--subtext-color);
   line-height: 1.8;
   max-width: 500px;
   margin: 1.5rem 0 2rem;
@@ -305,14 +305,14 @@ const scrollToContact = () => {
 }
 
 .btn-secondary {
-  background: transparent;
-  color: #e0e0e0;
-  border: 2px solid rgba(255, 255, 255, 0.2);
+  background: var(--btn-sec-bg);
+  color: var(--btn-sec-text);
+  border: 2px solid var(--btn-sec-border);
 }
 
 .btn-secondary:hover {
-  background: rgba(255, 255, 255, 0.1);
-  border-color: rgba(255, 255, 255, 0.4);
+  background: var(--btn-sec-hover);
+  border-color: var(--btn-sec-text);
 }
 
 .hero-visual {
@@ -329,25 +329,26 @@ const scrollToContact = () => {
 
 .avatar-blob {
   position: absolute;
-  inset: 0;
+  inset: 10px; /* Centered 280x280 within the 300x300 container */
+  overflow: hidden;
+  border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%;
+  transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), border-radius 0.6s ease-in-out;
+  animation: blob-morph 6s ease-in-out infinite;
+  box-shadow: 0 30px 80px rgba(102, 126, 234, 0.3);
   display: flex;
   align-items: center;
   justify-content: center;
-  overflow: hidden;
 }
 
 .profile-image {
-  width: 280px;
-  height: 280px;
+  width: 100%;
+  height: 100%;
   object-fit: cover;
-  border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%;
-  transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), border-radius 0.6s ease-in-out;
-  animation: blob-morph 6s ease-in-out infinite, photo-fly 1.2s cubic-bezier(0.34, 1.56, 0.64, 1) both;
-  box-shadow: 0 30px 80px rgba(102, 126, 234, 0.3);
+  transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
-.avatar-blob:hover .profile-image {
-  transform: scale(1.08) rotate(2deg);
+.avatar-blob:hover {
+  transform: scale(1.06) rotate(2deg);
   border-radius: 40% 60% 60% 40% / 40% 40% 60% 60%;
 }
 
@@ -410,7 +411,7 @@ const scrollToContact = () => {
   flex-direction: column;
   align-items: center;
   gap: 0.5rem;
-  color: #666;
+  color: var(--subtext-color);
   font-size: 0.85rem;
   animation: bounce 2s ease-in-out infinite;
 }
@@ -418,8 +419,8 @@ const scrollToContact = () => {
 .scroll-arrow {
   width: 20px;
   height: 20px;
-  border-right: 2px solid #666;
-  border-bottom: 2px solid #666;
+  border-right: 2px solid var(--subtext-color);
+  border-bottom: 2px solid var(--subtext-color);
   transform: rotate(45deg);
 }
 

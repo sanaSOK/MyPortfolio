@@ -1,6 +1,7 @@
 <script setup>
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, inject, computed } from 'vue'
 
+const t = inject('t')
 const isVisible = ref(false)
 const sectionRef = ref(null)
 
@@ -13,12 +14,12 @@ const skills = [
   { name: 'Git', level: 85, icon: '📦', color: '#f05032' },
 ]
 
-const services = [
+const services = computed(() => [
   {
     icon: '💻',
-    title: 'Web Development',
-    description: 'Building responsive and performant web applications with modern technologies.',
-    fullDescription: 'I build full-stack web applications using modern frameworks, optimized for accessibility and performance. I handle front-end UI, state management, backend APIs, and deployment.',
+    title: t('skills_web_title'),
+    description: t('skills_web_desc'),
+    fullDescription: t('skills_web_full_desc'),
     image: '💻',
     examples: [
       { title: 'E-Commerce E-Market', link: 'https://emarket-three.vercel.app' },
@@ -27,15 +28,21 @@ const services = [
   },
   {
     icon: '📱',
-    title: 'Mobile Apps',
-    description: 'Developing cross-platform mobile applications for iOS and Android.'
+    title: t('skills_mobile_title'),
+    description: t('skills_mobile_desc'),
+    fullDescription: t('skills_mobile_full_desc'),
+    image: '📱',
+    examples: []
   },
   {
     icon: '🚀',
-    title: 'Performance Optimization',
-    description: 'Optimizing applications for speed and the best user experience.'
+    title: t('skills_perf_title'),
+    description: t('skills_perf_desc'),
+    fullDescription: t('skills_perf_full_desc'),
+    image: '🚀',
+    examples: []
   }
-]
+])
 
 import SkillDetail from './SkillDetail.vue'
 
@@ -72,8 +79,8 @@ onMounted(() => {
   <section id="skills" ref="sectionRef" class="skills">
     <div class="container" :class="{ visible: isVisible }">
       <div class="section-header">
-        <span class="section-tag">My Skills</span>
-        <h2 class="section-title">What I Do Best</h2>
+        <span class="section-tag">{{ t('skills_tag') }}</span>
+        <h2 class="section-title">{{ t('skills_title') }}</h2>
       </div>
 
       <div class="services-grid">
@@ -87,7 +94,7 @@ onMounted(() => {
       <SkillDetail v-if="showSkillModal" :skill="selectedSkill" @close="closeSkill" />
 
       <div class="skills-container">
-        <h3 class="skills-heading">Technical Proficiency</h3>
+        <h3 class="skills-heading">{{ t('skills_tech') }}</h3>
         <div class="skills-grid">
           <div v-for="(skill, index) in skills" :key="index" class="skill-item" :style="{ '--delay': index * 0.1 + 's' }">
             <div class="skill-header">
@@ -114,7 +121,7 @@ onMounted(() => {
 <style scoped>
 .skills {
   padding: 6rem 2rem;
-  background: linear-gradient(180deg, #1a1a2e 0%, #16213e 100%);
+  background: transparent;
 }
 
 .container {
@@ -152,7 +159,7 @@ onMounted(() => {
 .section-title {
   font-size: 2.8rem;
   font-weight: 700;
-  color: #fff;
+  color: var(--heading-color);
   margin: 0;
 }
 
@@ -164,8 +171,8 @@ onMounted(() => {
 }
 
 .service-card {
-  background: rgba(255, 255, 255, 0.02);
-  border: 1px solid rgba(255, 255, 255, 0.05);
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
   border-radius: 20px;
   padding: 2rem;
   text-align: center;
@@ -205,20 +212,20 @@ onMounted(() => {
 .service-title {
   font-size: 1.3rem;
   font-weight: 600;
-  color: #fff;
+  color: var(--heading-color);
   margin: 0 0 0.5rem;
 }
 
 .service-description {
   font-size: 0.95rem;
-  color: #888;
+  color: var(--subtext-color);
   margin: 0;
   line-height: 1.6;
 }
 
 .skills-container {
-  background: rgba(255, 255, 255, 0.02);
-  border: 1px solid rgba(255, 255, 255, 0.05);
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
   border-radius: 20px;
   padding: 3rem;
 }
@@ -226,7 +233,7 @@ onMounted(() => {
 .skills-heading {
   font-size: 1.5rem;
   font-weight: 600;
-  color: #fff;
+  color: var(--heading-color);
   margin: 0 0 2rem;
   text-align: center;
 }
@@ -260,7 +267,7 @@ onMounted(() => {
 
 .skill-name {
   font-weight: 500;
-  color: #e0e0e0;
+  color: var(--text-color);
   flex: 1;
 }
 
@@ -271,7 +278,7 @@ onMounted(() => {
 
 .skill-bar {
   height: 8px;
-  background: rgba(255, 255, 255, 0.1);
+  background: var(--card-border);
   border-radius: 10px;
   overflow: hidden;
 }

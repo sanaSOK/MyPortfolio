@@ -1,6 +1,7 @@
 <script setup>
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, inject, computed } from 'vue'
 
+const t = inject('t')
 const isVisible = ref(false)
 const sectionRef = ref(null)
 
@@ -42,11 +43,11 @@ const socialLinks = [
   { icon: IconInstagram, name: 'Instagram', url: 'https://www.instagram.com/' }
 ]
 
-const contactInfo = [
-  { icon: IconEmail, label: 'Email', value: 'johndoe@email.com' },
-  { icon: IconPhone, label: 'Phone', value: '+1 234 567 890' },
-  { icon: IconLocation, label: 'Location', value: 'New York, USA' }
-]
+const contactInfo = computed(() => [
+  { icon: IconEmail, label: t('contact_info_email'), value: 'johndoe@email.com', labelKey: 'contact_info_email' },
+  { icon: IconPhone, label: t('contact_info_phone'), value: '+1 234 567 890', labelKey: 'contact_info_phone' },
+  { icon: IconLocation, label: t('contact_info_loc'), value: 'New York, USA', labelKey: 'contact_info_loc' }
+])
 
 onMounted(() => {
   const observer = new IntersectionObserver((entries) => {
@@ -67,33 +68,36 @@ onMounted(() => {
   <section id="contact" ref="sectionRef" class="contact">
     <div class="container" :class="{ visible: isVisible }">
       <div class="section-header">
-        <span class="section-tag">Contact</span>
-        <h2 class="section-title">Let's Work Together</h2>
+        <span class="section-tag">{{ t('contact_tag') }}</span>
+        <h2 class="section-title">{{ t('contact_title') }}</h2>
         <p class="section-subtitle">
-          Have a project in mind? Let's create something amazing together.
+          {{ t('contact_subtitle') }}
         </p>
       </div>
 
       <div class="contact-content">
         <div class="contact-info">
-          <h3 class="info-title">Get In Touch</h3>
+          <h3 class="info-title">{{ t('contact_info_title') }}</h3>
           <p class="info-text">
-            I'm always open to discussing new projects, creative ideas, 
-            or opportunities to be part of your visions.
+            {{ t('contact_info_text') }}
           </p>
 
           <div class="info-items">
-            <div v-for="info in contactInfo" :key="info.label" class="info-item">
-              <span class="info-icon"><component :is="info.icon" /></span>
-              <div>
+            <div v-for="info in contactInfo" :key="info.label" class="info-card">
+              <div class="info-icon-wrapper">
+                <span class="info-icon"><component :is="info.icon" /></span>
+              </div>
+              <div class="info-text-wrapper">
                 <span class="info-label">{{ info.label }}</span>
-                <span class="info-value">{{ info.value }}</span>
+                <a v-if="info.labelKey === 'contact_info_email'" :href="'mailto:' + info.value" class="info-value link">{{ info.value }}</a>
+                <a v-else-if="info.labelKey === 'contact_info_phone'" :href="'tel:' + info.value.replace(/\s+/g, '')" class="info-value link">{{ info.value }}</a>
+                <span v-else class="info-value">{{ info.value }}</span>
               </div>
             </div>
           </div>
 
           <div class="social-links">
-            <h4>Follow Me</h4>
+            <h4>{{ t('contact_follow') }}</h4>
             <div class="social-icons">
               <a v-for="social in socialLinks" :key="social.name" :href="social.url" class="social-link" :title="social.name">
                 <component :is="social.icon" />
@@ -105,7 +109,7 @@ onMounted(() => {
         <form class="contact-form" @submit.prevent="handleSubmit">
           <div class="form-row">
             <div class="form-group">
-              <label for="name">Your Name</label>
+              <label for="name">{{ t('contact_form_name') }}</label>
               <input 
                 type="text" 
                 id="name" 
@@ -115,7 +119,7 @@ onMounted(() => {
               />
             </div>
             <div class="form-group">
-              <label for="email">Your Email</label>
+              <label for="email">{{ t('contact_form_email') }}</label>
               <input 
                 type="email" 
                 id="email" 
@@ -126,7 +130,7 @@ onMounted(() => {
             </div>
           </div>
           <div class="form-group">
-            <label for="subject">Subject</label>
+            <label for="subject">{{ t('contact_form_subject') }}</label>
             <input 
               type="text" 
               id="subject" 
@@ -136,19 +140,19 @@ onMounted(() => {
             />
           </div>
           <div class="form-group">
-            <label for="message">Message</label>
+            <label for="message">{{ t('contact_form_msg') }}</label>
             <textarea 
               id="message" 
               v-model="form.message"
-              placeholder="Tell me about your project..."
+              :placeholder="t('contact_form_msg_placeholder')"
               rows="5"
               required
             ></textarea>
           </div>
           <button type="submit" class="submit-btn" :disabled="isSubmitting">
-            <span v-if="isSubmitting">Sending...</span>
-            <span v-else-if="submitSuccess">✓ Message Sent!</span>
-            <span v-else>Send Message →</span>
+            <span v-if="isSubmitting">{{ t('contact_form_sending') }}</span>
+            <span v-else-if="submitSuccess">✓ {{ t('contact_form_sent') }}</span>
+            <span v-else>{{ t('contact_form_send') }} →</span>
           </button>
         </form>
       </div>
@@ -159,7 +163,7 @@ onMounted(() => {
 <style scoped>
 .contact {
   padding: 6rem 2rem;
-  background: linear-gradient(180deg, #1a1a2e 0%, #0f0f1a 100%);
+  background: transparent;
 }
 
 .container {
@@ -197,13 +201,13 @@ onMounted(() => {
 .section-title {
   font-size: 2.8rem;
   font-weight: 700;
-  color: #fff;
+  color: var(--heading-color);
   margin: 0 0 1rem;
 }
 
 .section-subtitle {
   font-size: 1.1rem;
-  color: #888;
+  color: var(--subtext-color);
   max-width: 500px;
   margin: 0 auto;
 }
@@ -221,12 +225,12 @@ onMounted(() => {
 .info-title {
   font-size: 1.5rem;
   font-weight: 600;
-  color: #fff;
+  color: var(--heading-color);
   margin: 0 0 1rem;
 }
 
 .info-text {
-  color: #888;
+  color: var(--subtext-color);
   line-height: 1.8;
   margin-bottom: 2rem;
 }
@@ -234,48 +238,91 @@ onMounted(() => {
 .info-items {
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
-  margin-bottom: 2rem;
+  gap: 1rem;
+  margin-bottom: 2.5rem;
+  width: 100%;
 }
 
-.info-item {
+.info-card {
   display: flex;
   align-items: center;
-  gap: 1rem;
+  gap: 1.25rem;
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  padding: 1.2rem 1.5rem;
+  border-radius: 16px;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  width: 100%;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+}
+
+.info-card:hover {
+  transform: translateY(-3px) scale(1.01);
+  border-color: rgba(102, 126, 234, 0.4);
+  background: rgba(102, 126, 234, 0.04);
+  box-shadow: 0 10px 30px rgba(102, 126, 234, 0.1);
+}
+
+.info-icon-wrapper {
+  flex-shrink: 0;
 }
 
 .info-icon {
-  width: 72px;
-  height: 72px;
-  background: radial-gradient(circle at 30% 30%, rgba(102,126,234,0.95), rgba(118,75,162,0.9));
-  border-radius: 50%;
+  width: 54px;
+  height: 54px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-radius: 12px;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 1.6rem;
-  color: #fff;
-  box-shadow: 0 10px 30px rgba(118,75,162,0.2);
+  box-shadow: 0 4px 15px rgba(102, 126, 234, 0.25);
+  transition: transform 0.3s ease;
 }
+
+.info-card:hover .info-icon {
+  transform: scale(1.08) rotate(-5deg);
+}
+
 .info-icon svg {
-  width: 30px;
-  height: 30px;
+  width: 24px;
+  height: 24px;
   color: #fff;
+}
+
+.info-text-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  text-align: left;
 }
 
 .info-label {
-  display: block;
-  font-size: 0.85rem;
-  color: #666;
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: var(--subtext-color);
+  opacity: 0.7;
 }
 
 .info-value {
-  display: block;
-  color: #e0e0e0;
-  font-weight: 500;
+  font-size: 1.05rem;
+  color: var(--text-color);
+  font-weight: 600;
+  transition: color 0.2s ease;
+  word-break: break-all;
+}
+
+.info-value.link {
+  text-decoration: none;
+}
+
+.info-value.link:hover {
+  color: #667eea;
 }
 
 .social-links h4 {
-  color: #fff;
+  color: var(--heading-color);
   font-size: 1rem;
   margin: 0 0 1rem;
 }
@@ -310,8 +357,8 @@ onMounted(() => {
 }
 
 .contact-form {
-  background: rgba(255, 255, 255, 0.02);
-  border: 1px solid rgba(255, 255, 255, 0.05);
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
   border-radius: 20px;
   padding: 2.5rem;
 }
@@ -328,7 +375,7 @@ onMounted(() => {
 
 .form-group label {
   display: block;
-  color: #e0e0e0;
+  color: var(--text-color);
   font-size: 0.9rem;
   font-weight: 500;
   margin-bottom: 0.5rem;
@@ -338,10 +385,10 @@ onMounted(() => {
 .form-group textarea {
   width: 100%;
   padding: 1rem 1.2rem;
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: var(--input-bg);
+  border: 1px solid var(--input-border);
   border-radius: 12px;
-  color: #fff;
+  color: var(--heading-color);
   font-size: 1rem;
   font-family: inherit;
   transition: all 0.3s ease;
@@ -399,7 +446,9 @@ onMounted(() => {
   }
 
   .info-items {
-    align-items: center;
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 450px;
   }
 
   .social-icons {

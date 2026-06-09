@@ -1,8 +1,9 @@
 <script setup>
-import { ref, onMounted, onBeforeUnmount } from 'vue'
+import { ref, onMounted, onBeforeUnmount, inject } from 'vue'
 import siteInfo from '@/data/siteInfo.js'
 import projectsData from '@/data/projects.js'
 
+const t = inject('t')
 const isVisible = ref(false)
 const sectionRef = ref(null)
 
@@ -69,8 +70,8 @@ onBeforeUnmount(() => {
   <section id="about" ref="sectionRef" class="about">
     <div class="container" :class="{ visible: isVisible }">
       <div class="section-header">
-        <span class="section-tag">About Me</span>
-        <h2 class="section-title">Passionate About Creating</h2>
+        <span class="section-tag">{{ t('about_tag') }}</span>
+        <h2 class="section-title">{{ t('about_title') }}</h2>
       </div>
 
       <div class="about-content">
@@ -83,38 +84,33 @@ onBeforeUnmount(() => {
           </div>
           <div class="experience-badge">
             <span class="exp-number">{{ yearsExp }}+</span>
-            <span class="exp-text">Years Experience</span>
+            <span class="exp-text">{{ t('about_exp') }}</span>
           </div>
         </div>
 
         <div class="about-text">
           <p class="lead">
-            I'm a passionate web developer based in the digital world, 
-            dedicated to creating beautiful, functional, and user-centered web applications.
+            {{ t('about_lead') }}
           </p>
           <p>
-            With a strong foundation in modern development technologies, 
-            I bring ideas to life through clean code and innovative solutions. I believe that 
-            great development is not just about functionality—it's about solving problems and creating 
-            meaningful user experiences.
+            {{ t('about_p1') }}
           </p>
           <p>
-            When I'm not coding, you'll find me exploring new technologies, contributing to 
-            open-source projects, or sharing knowledge with the developer community.
+            {{ t('about_p2') }}
           </p>
 
           <div class="stats">
             <div class="stat-item">
               <span class="stat-number">{{ projects }}+</span>
-              <span class="stat-label">Projects Completed</span>
+              <span class="stat-label">{{ t('about_stat_completed') }}</span>
             </div>
             <div class="stat-item">
               <span class="stat-number">{{ clients }}+</span>
-              <span class="stat-label">Happy Clients</span>
+              <span class="stat-label">{{ t('about_stat_clients') }}</span>
             </div>
             <div class="stat-item">
               <span class="stat-number">{{ satisfaction }}%</span>
-              <span class="stat-label">Satisfaction</span>
+              <span class="stat-label">{{ t('about_stat_satisfaction') }}</span>
             </div>
           </div>
         </div>
@@ -126,7 +122,7 @@ onBeforeUnmount(() => {
 <style scoped>
 .about {
   padding: 6rem 2rem;
-  background: linear-gradient(180deg, #0f0f1a 0%, #1a1a2e 100%);
+  background: transparent;
   position: relative;
 }
 
@@ -165,7 +161,7 @@ onBeforeUnmount(() => {
 .section-title {
   font-size: 2.8rem;
   font-weight: 700;
-  color: #fff;
+  color: var(--heading-color);
   margin: 0;
 }
 
@@ -188,12 +184,12 @@ onBeforeUnmount(() => {
 
 .image-placeholder {
   aspect-ratio: 4/5;
-  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+  background: var(--card-bg);
   display: flex;
   align-items: center;
   justify-content: center;
   border-radius: 20px;
-  border: 2px solid rgba(102, 126, 234, 0.2);
+  border: 2px solid var(--card-border);
   overflow: hidden;
 }
 
@@ -239,12 +235,12 @@ onBeforeUnmount(() => {
 }
 
 .about-text {
-  color: #a0a0a0;
+  color: var(--subtext-color);
 }
 
 .lead {
   font-size: 1.3rem;
-  color: #e0e0e0;
+  color: var(--text-color);
   line-height: 1.8;
   margin-bottom: 1.5rem;
 }
@@ -259,7 +255,7 @@ onBeforeUnmount(() => {
   gap: 2rem;
   margin-top: 2rem;
   padding-top: 2rem;
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  border-top: 1px solid var(--card-border);
 }
 
 .stat-item {
@@ -279,7 +275,7 @@ onBeforeUnmount(() => {
 .stat-label {
   display: block;
   font-size: 0.85rem;
-  color: #888;
+  color: var(--subtext-color);
   margin-top: 0.3rem;
 }
 

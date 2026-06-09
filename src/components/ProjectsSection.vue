@@ -1,7 +1,8 @@
 <script setup>
-import { ref, onMounted, computed } from 'vue'
+import { ref, onMounted, computed, inject } from 'vue'
 import projects from '@/data/projects.js'
 
+const t = inject('t')
 const isVisible = ref(false)
 const sectionRef = ref(null)
 const activeFilter = ref('all')
@@ -32,8 +33,8 @@ onMounted(() => {
   <section id="projects" ref="sectionRef" class="projects">
     <div class="container" :class="{ visible: isVisible }">
       <div class="section-header">
-        <span class="section-tag">My Work</span>
-        <h2 class="section-title">Featured Projects</h2>
+        <span class="section-tag">{{ t('projects_tag') }}</span>
+        <h2 class="section-title">{{ t('projects_title') }}</h2>
       </div>
 
       <div class="filters">
@@ -44,7 +45,7 @@ onMounted(() => {
           :class="{ active: activeFilter === filter }"
           @click="activeFilter = filter"
         >
-          {{ filter.charAt(0).toUpperCase() + filter.slice(1) }}
+          {{ t('projects_filter_' + filter) }}
         </button>
       </div>
 
@@ -70,7 +71,7 @@ onMounted(() => {
             <div class="project-content">
               <span class="project-category">{{ project.category }}</span>
               <h3 class="project-title">{{ project.title }}</h3>
-              <p class="project-description">{{ project.description }}</p>
+              <p class="project-description">{{ t(project.descKey) }}</p>
               <div class="project-tags">
                 <span v-for="tag in project.tags" :key="tag" class="tag">{{ tag }}</span>
               </div>
@@ -85,7 +86,7 @@ onMounted(() => {
 <style scoped>
 .projects {
   padding: 6rem 2rem;
-  background: linear-gradient(180deg, #16213e 0%, #1a1a2e 100%);
+  background: transparent;
 }
 
 .container {
@@ -123,7 +124,7 @@ onMounted(() => {
 .section-title {
   font-size: 2.8rem;
   font-weight: 700;
-  color: #fff;
+  color: var(--heading-color);
   margin: 0;
 }
 
@@ -164,8 +165,8 @@ onMounted(() => {
 }
 
 .project-card {
-  background: rgba(255, 255, 255, 0.02);
-  border: 1px solid rgba(255, 255, 255, 0.05);
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
   border-radius: 20px;
   overflow: hidden;
   transition: all 0.3s ease;
@@ -249,13 +250,13 @@ onMounted(() => {
 .project-title {
   font-size: 1.3rem;
   font-weight: 600;
-  color: #fff;
+  color: var(--heading-color);
   margin: 0 0 0.5rem;
 }
 
 .project-description {
   font-size: 0.95rem;
-  color: #888;
+  color: var(--subtext-color);
   line-height: 1.6;
   margin: 0 0 1rem;
 }
@@ -268,10 +269,10 @@ onMounted(() => {
 
 .tag {
   padding: 0.3rem 0.7rem;
-  background: rgba(255, 255, 255, 0.05);
+  background: var(--card-border);
   border-radius: 15px;
   font-size: 0.8rem;
-  color: #a0a0a0;
+  color: var(--text-color);
 }
 
 /* Transitions */
