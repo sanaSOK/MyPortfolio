@@ -1,7 +1,6 @@
 <script setup>
-import { ref, onMounted, inject } from 'vue'
+import { ref, onMounted } from 'vue'
 
-const t = inject('t')
 const isVisible = ref(false)
 
 onMounted(() => {
@@ -28,7 +27,7 @@ const scrollToContact = () => {
     
     <div class="hero-content" :class="{ visible: isVisible }">
       <div class="hero-text">
-        <span class="greeting">{{ t('hero_greeting') }}</span>
+        <span class="greeting">Hello, I'm</span>
         <h1 class="name">
           <span class="name-inner">
             <span class="name-part sok">SOK</span>
@@ -37,19 +36,20 @@ const scrollToContact = () => {
           </span>
         </h1>
         <h2 class="title">
-          <span class="title-word">{{ t('hero_title_creative') }}</span>
-          <span class="title-word highlight">{{ t('hero_title_dev') }}</span>
+          <span class="title-word">Creative</span>
+          <span class="title-word highlight">Web Developer</span>
         </h2>
         <p class="description">
-          {{ t('hero_desc') }}
+          I craft beautiful digital experiences with clean code and modern technologies. 
+          Passionate about creating innovative solutions that make a difference.
         </p>
         <div class="hero-buttons">
           <button class="btn btn-primary" @click="scrollToContact">
-            {{ t('hero_btn_contact') }}
+            Get In Touch
             <span class="btn-icon">→</span>
           </button>
           <a href="#projects" class="btn btn-secondary">
-            {{ t('hero_btn_projects') }}
+            View My Work
           </a>
         </div>
       </div>
@@ -71,7 +71,7 @@ const scrollToContact = () => {
     </div>
 
     <div class="scroll-indicator">
-      <span>{{ t('hero_scroll') }}</span>
+      <span>Scroll Down</span>
       <div class="scroll-arrow"></div>
     </div>
   </section>
@@ -329,26 +329,25 @@ const scrollToContact = () => {
 
 .avatar-blob {
   position: absolute;
-  inset: 10px; /* Centered 280x280 within the 300x300 container */
-  overflow: hidden;
-  border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%;
-  transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), border-radius 0.6s ease-in-out;
-  animation: blob-morph 6s ease-in-out infinite;
-  box-shadow: 0 30px 80px rgba(102, 126, 234, 0.3);
+  inset: 0;
   display: flex;
   align-items: center;
   justify-content: center;
+  overflow: visible;
 }
 
 .profile-image {
-  width: 100%;
-  height: 100%;
+  width: 280px;
+  height: 280px;
   object-fit: cover;
-  transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%;
+  transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), border-radius 0.6s ease-in-out;
+  animation: blob-morph 6s ease-in-out infinite, photo-fly 1.2s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+  box-shadow: 0 30px 80px rgba(102, 126, 234, 0.3);
 }
 
-.avatar-blob:hover {
-  transform: scale(1.06) rotate(2deg);
+.avatar-blob:hover .profile-image {
+  transform: scale(1.08) rotate(2deg);
   border-radius: 40% 60% 60% 40% / 40% 40% 60% 60%;
 }
 

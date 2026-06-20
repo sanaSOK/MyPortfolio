@@ -44,9 +44,9 @@ const socialLinks = [
 ]
 
 const contactInfo = computed(() => [
-  { icon: IconEmail, label: t('contact_info_email'), value: 'johndoe@email.com', labelKey: 'contact_info_email' },
-  { icon: IconPhone, label: t('contact_info_phone'), value: '+1 234 567 890', labelKey: 'contact_info_phone' },
-  { icon: IconLocation, label: t('contact_info_loc'), value: 'New York, USA', labelKey: 'contact_info_loc' }
+  { icon: IconEmail, label: t('contact_info_email'), value: 'sanasokitc2023@gmail.com', labelKey: 'contact_info_email' },
+  { icon: IconPhone, label: t('contact_info_phone'), value: '(+885) 66 737 549', labelKey: 'contact_info_phone' },
+  { icon: IconLocation, label: t('contact_info_loc'), value: 'Phnom Penh, Cambodia', labelKey: 'contact_info_loc' }
 ])
 
 onMounted(() => {
